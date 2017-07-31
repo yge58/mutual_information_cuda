@@ -1,0 +1,83 @@
+Project Name: Calculate Image Mutual Information in CUDA
+
+Developer: Yan Ge
+
+Source Code based on: [1] CUDA sample histogram 
+       	    	      [2] ITK Image Mutual Information sample code.
+
+
+Special thanks go to Professor Marc Moreno Maza for teaching me CS 9535 Distributed & Parallel Systems,
+without his lecture, I would not have fallen in love with CUDA.
+
+And Professor Aaron Ward for teaching me ECE 9022 Advanced Image Processing and Analysis,
+without his lecture, I would not have known what Image mutual information is and other amazing
+image processing algorithm he taught.
+
+Finally, I thank my Mom and Dad for supporting my graduate study at Western University,
+and undergraduate study at McGill University.
+======================================================================================
+
+
+How to use:
+
+[1] Install ITK
+    (It takes long, when you type "make", type "make -j 4(# of processors you have in your PC)"
+    https://itk.org/ITK/resources/software.html)
+
+    Install CMAKE
+    (https://cmake.org/download/)
+    
+    (needless to say, CUDA, emacs, GNU GLOBAL...)
+
+
+[2] <1> Make a directory called "cudaMutualInformation"
+    <2> untar the source code.
+    <3> Inside this directory, make another directory called "build".
+
+
+[3] Build using cmake.
+    you might need to change a few lines of code in "CMakeList.txt". 
+    
+    Suggestions:
+    <1> build a sample ITK program using cmake
+    (ITK/Configuring and Building, https://itk.org/Wiki/ITK/Configuring_and_Building)
+    
+    <2> build a sample CUDA program using cmake
+    (how to use cmake with cuda, https://codeyarns.com/2013/09/13/how-to-build-cuda-programs-using-cmake/)
+    
+    <3> now combine them, build a ITK CUDA program using my example "CMakeList.txt"
+    (please find comment in "CMakeList.txt")
+
+
+[4] make
+
+
+[5] Copy any two images to directory "build", I have provided you with a 3D brain image (.nrrd file).
+    You may choose any two images, they can be the same, or different, as long as ITK recognize them.
+
+
+[6] Example command line options:
+    <1> use ITK (#_bin), for example
+	./ImageMutualInformation ManualRegistrationExample_fixed.nrrd ManualRegistrationExample_fixed.nrrd 0 #_bin
+
+    <2> use CUDA (only 64-bin or 256 bin) 
+        ./ImageMutualInformation ManualRegistrationExample_fixed.nrrd ManualRegistrationExample_fixed.nrrd 1 (64 or 256)
+
+
+Attention: There is a bug.
+
+	   If use same bin number, no matter you choose ITK or CUDA, the results shall be the same.
+	   However, funny thing happens in my program, they are not the same.
+
+	   The reason is the following, the "double" format in ITK is more precise than CUDA.
+	   For eample, if bin count is 42, ITK gives 0.00840947, while CUDA gives 0.008409.
+	   The fact is CUDA's "double" precision is 6 decimal place after decimal point, while ITK is 8 decimal place. 
+	   Although the difference is tiny, it might become a significant issue in image registration algorithm.
+	   
+ 	   If this is the reason why ITK runs slow, or CUDA runs strangly fast, CUDA code must be more precise on "double".
+	   I will do some reseach on this, and I will make CUDA program run with any bin number like ITK.
+	   
+	   Thank you for using this program and I certainly welcome any comments.
+
+
+
