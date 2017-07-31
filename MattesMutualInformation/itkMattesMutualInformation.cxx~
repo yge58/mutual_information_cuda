@@ -1,0 +1,238 @@
+/*=========================================================================
+ *
+ *  Copyright Insight Software Consortium
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0.txt
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *
+ *=========================================================================*/
+
+#include <iostream>
+#include <iomanip>  
+
+#include "itkImage.h"
+#include "itkImportImageContainer.h"
+#include "itkImageFileReader.h"
+#include "itkImageFileWriter.h"
+#include "itkResampleImageFilter.h"
+
+#include "itkTranslationTransform.h"
+#include "itkMattesMutualInformationImageToImageMetricv4.h"
+
+#include "itkTimeProbe.h"
+
+#include "mutual_information_common.h"
+
+
+bool itkMattesMutualInformation( const std::string &image1Name, const std::string &image2Name, const uint &bin_count )
+{
+  unsigned int numberOfBins = bin_count;
+  
+  itk::TimeProbe clock;
+  
+  const unsigned int Dimension = 3;
+  
+  typedef float                                                    PixelType;
+  typedef itk::Image< PixelType, Dimension >                       ImageType;
+  typedef itk::ImageFileReader< ImageType >                        ReaderType;
+  typedef itk::Image< PixelType, Dimension >::PixelContainer       ImagePixelContainerType;
+
+  
+  // Allocate Image Reader 
+  ReaderType::Pointer reader_1 = ReaderType::New();
+  ReaderType::Pointer reader_2 = ReaderType::New();
+  
+  reader_1->SetFileName( image1Name );
+  reader_2->SetFileName( image2Name );
+
+  // Reading Image, catch exception if failed
+  try
+    {
+      reader_1->Update();
+      reader_2->Update();
+    }
+  catch( itk::ExceptionObject & err )
+    {
+      std::cerr << "ExceptionObject caught" << std::endl;
+      std::cerr << err << std::endl;
+      return EXIT_FAILURE;
+    }
+
+  //Output Image from Reader
+  ImageType::Pointer image1 = reader_1->GetOutput();
+  ImageType::Pointer image2 = reader_2->GetOutput();
+
+  /* DEBUGGING code
+
+  
+  const     unsigned int   Dimension = 1;
+  typedef   float          PixelType;
+
+  typedef itk::Image< PixelType, Dimension >   ImageType;
+
+  ImageType::Pointer image1 = ImageType::New();
+
+  
+  typedef ImageType::IndexType pixelIndex;
+
+  pixelIndex idx0 = {0};
+  pixelIndex idx1 = {1};
+  pixelIndex idx2 = {2};
+  pixelIndex idx3 = {3};
+  pixelIndex idx4 = {4};
+  pixelIndex idx5 = {5};
+  pixelIndex idx6 = {6};
+  pixelIndex idx7 = {7};
+  pixelIndex idx8 = {8};
+  pixelIndex idx9 = {9};
+  pixelIndex idx10 = {10};
+  
+  
+  const unsigned int imageSize = 10;
+
+  
+  ImageType::SizeType size;
+  size[0] = imageSize;
+  
+  ImageType::RegionType region;
+  region.SetSize( size );
+  region.SetIndex( idx0 );
+
+
+  ////////////////////////////////// IMAGE ONE /////////////////////////////////
+  // Allocate first Image
+  image1->SetRegions( region );
+  image1->Allocate( true ); // initialize buffer to zero
+
+  // Debugging test 1, image 1, size 10
+  
+  image1->SetPixel(idx0, 9);
+  image1->SetPixel(idx1, 8);
+  image1->SetPixel(idx2, 7);
+  image1->SetPixel(idx3, 6);
+  image1->SetPixel(idx4, 5);
+ 
+  image1->SetPixel(idx5, 4);
+  image1->SetPixel(idx6, 3);
+  image1->SetPixel(idx7, 2);
+  image1->SetPixel(idx8, 1);
+  image1->SetPixel(idx9, 0);
+
+  
+  
+  ////////////////////////////   IMAGE TWO   ////////////////////////////////////
+  ImageType::Pointer image2 = ImageType::New();
+
+  image2->SetRegions( region );
+  image2->Allocate( true );
+
+
+  // Debugging test 1, image 2
+  image2->SetPixel(idx0, 0);
+  image2->SetPixel(idx1, 1);
+  image2->SetPixel(idx2, 2);
+  image2->SetPixel(idx3, 3);
+  image2->SetPixel(idx4, 4);
+ 
+  image2->SetPixel(idx5, 5);
+  image2->SetPixel(idx6, 6);
+  image2->SetPixel(idx7, 7);
+  image2->SetPixel(idx8, 8);
+  image2->SetPixel(idx9, 9);
+  
+  /*          debugging           */
+
+  typedef itk::TranslationTransform< double, Dimension >  TransformType;
+
+  TransformType::Pointer transform = TransformType::New();
+
+  transform->SetIdentity();
+
+  typedef itk::MattesMutualInformationImageToImageMetricv4< ImageType, ImageType >  MetricType;
+
+  MetricType::Pointer metric = MetricType::New();
+
+  
+  metric->SetNumberOfHistogramBins( numberOfBins );
+  
+  metric->SetUseMovingImageGradientFilter( false );
+  metric->SetUseFixedImageGradientFilter( false );
+
+  // Do not use sample pixels, use all pixels
+  metric->SetUseFixedSampledPointSet( false );
+
+  // metric->SetTransform( transform );
+
+  metric->SetFixedImage( image1 );
+  
+  metric->SetMovingImage( image2 );
+
+  metric->SetVirtualDomainFromImage( image1 );
+
+  clock.Start();
+  
+  try
+    {
+      metric->Initialize();
+    }
+  catch( itk::ExceptionObject & excep )
+    {
+      std::cerr << "Exception catched !" << std::endl;
+      std::cerr << excep << std::endl;
+      return EXIT_FAILURE;
+    }
+
+  const double value = metric->GetValue();
+
+  std::cout << "ITK Mattes Mutual Information = " << value << std::endl;
+
+  clock.Stop();
+  
+  std::cout << "ITK compute Time  = " << clock.GetMean() * 1000 << " ms" << std::endl;
+
+  /* // Print Joint PDF
+  typedef itk::Image<double, 2> JointPDFType;
+  typedef JointPDFType::IndexType JointPDFIndexType;
+
+  JointPDFType::Pointer jointPDF = metric->GetJointPDF();
+  float sum = 0;
+  
+  for (size_t row = 0; row < numberOfBins; row++)
+    {
+      for (size_t col = 0; col < numberOfBins; col++)
+	{
+	  JointPDFIndexType idx = {col, row};
+	  if (jointPDF->GetPixel(idx))
+	    std::cout << "Joint["<< row << "]" << "[" << col << "]" << jointPDF->GetPixel(idx) << std::endl; 
+	  sum += jointPDF->GetPixel(idx);
+	}
+    }
+  std::cout << "sum = " << sum << std::endl;
+
+  /*
+   for (size_t row = 0; row < numberOfBins; row++)
+    {
+      std::cout << std::endl << std::endl;
+      for (size_t col = 0; col < numberOfBins; col++)
+	{
+	  const JointPDFIndexType idx = {col, row};
+	  std::cout << std::setprecision(3) <<jointPDF->GetPixel(idx) << "\t"; 
+	}
+    }
+  std::cout << std::endl;
+  */
+
+  
+  return EXIT_SUCCESS;
+  
+  
+}
