@@ -1,0 +1,110 @@
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7a6e6/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7a6e6.dir/build.make CMakeFiles/cmTC_7a6e6.dir/build
+make[1]: Entering directory '/home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_7a6e6.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -fPIC    -o CMakeFiles/cmTC_7a6e6.dir/CheckSymbolExists.c.o   -c /home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_7a6e6
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7a6e6.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC     CMakeFiles/cmTC_7a6e6.dir/CheckSymbolExists.c.o  -o cmTC_7a6e6 -rdynamic 
+CMakeFiles/cmTC_7a6e6.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_7a6e6.dir/build.make:97: recipe for target 'cmTC_7a6e6' failed
+make[1]: *** [cmTC_7a6e6] Error 1
+make[1]: Leaving directory '/home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7a6e6/fast' failed
+make: *** [cmTC_7a6e6/fast] Error 2
+
+File /home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_012d9/fast"
+/usr/bin/make -f CMakeFiles/cmTC_012d9.dir/build.make CMakeFiles/cmTC_012d9.dir/build
+make[1]: Entering directory '/home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_012d9.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_012d9.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_012d9
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_012d9.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_012d9.dir/CheckFunctionExists.c.o  -o cmTC_012d9 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_012d9.dir/build.make:97: recipe for target 'cmTC_012d9' failed
+make[1]: *** [cmTC_012d9] Error 1
+make[1]: Leaving directory '/home/yan/project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_012d9/fast' failed
+make: *** [cmTC_012d9/fast] Error 2
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_beac3/fast"
+/usr/bin/make -f CMakeFiles/cmTC_beac3.dir/build.make CMakeFiles/cmTC_beac3.dir/build
+make[1]: Entering directory '/home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_beac3.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -fPIC    -o CMakeFiles/cmTC_beac3.dir/CheckSymbolExists.c.o   -c /home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_beac3
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_beac3.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC     CMakeFiles/cmTC_beac3.dir/CheckSymbolExists.c.o  -o cmTC_beac3 -rdynamic 
+CMakeFiles/cmTC_beac3.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_beac3.dir/build.make:97: recipe for target 'cmTC_beac3' failed
+make[1]: *** [cmTC_beac3] Error 1
+make[1]: Leaving directory '/home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_beac3/fast' failed
+make: *** [cmTC_beac3/fast] Error 2
+
+File /home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_71f93/fast"
+/usr/bin/make -f CMakeFiles/cmTC_71f93.dir/build.make CMakeFiles/cmTC_71f93.dir/build
+make[1]: Entering directory '/home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_71f93.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_71f93.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.5/Modules/CheckFunctionExists.c
+Linking C executable cmTC_71f93
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_71f93.dir/link.txt --verbose=1
+/usr/bin/cc  -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_71f93.dir/CheckFunctionExists.c.o  -o cmTC_71f93 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_71f93.dir/build.make:97: recipe for target 'cmTC_71f93' failed
+make[1]: *** [cmTC_71f93] Error 1
+make[1]: Leaving directory '/home/yan/cs9535project/MattesMutualInformation/MattesMutualInformation/build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_71f93/fast' failed
+make: *** [cmTC_71f93/fast] Error 2
+
+
