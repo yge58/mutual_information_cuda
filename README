@@ -7,17 +7,6 @@ Time: 	      		March 2017 - May 2017
 Source Code based on: [1] CUDA sample histogram 
        	    	      [2] ITK Image Mutual Information sample code.
 
-
-I am very grateful to Professor Marc Moreno Maza for teaching me CS 9535 Distributed & Parallel Systems,
-without his lecture, I would not have fallen in love with CUDA.
-
-And Professor Aaron Ward for teaching me ECE 9022 Advanced Image Processing and Analysis,
-without his lecture, I would not have known what Image mutual information is and other amazing
-image processing algorithm he taught.
-
-Finally, I thank my Mom and Dad for supporting my graduate study at Western University,
-and undergraduate study at McGill University.
-
 _______________________________________________________________________
 I dedicate this project to my mom, in celebration of her 50th birthday!
 _______________________________________________________________________
