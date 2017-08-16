@@ -1,7 +1,4 @@
-#Image Mutual Information in CUDA
-________________________________________________________________________
-I dedicate this project to my mom, in celebration of her 50th birthday!
-
+Project: 		Image Mutual Information in CUDA
 
 Developer:    		Yan Ge
 
@@ -21,8 +18,9 @@ image processing algorithm he taught.
 Finally, I thank my Mom and Dad for supporting my graduate study at Western University,
 and undergraduate study at McGill University.
 
-======================================================================================
-
+_______________________________________________________________________
+I dedicate this project to my mom, in celebration of her 50th birthday!
+_______________________________________________________________________
 
 How to use:
 
@@ -72,6 +70,7 @@ if cmake failed, the following may help build.
 
 Attention: the "double" format in ITK is more precise than CUDA.
 	   For eample, if bin count is 42, ITK gives 0.00840947, while CUDA gives 0.008409.
+	   
 	   
 	   
 	   Thank you for trying this software, and I certainly welcome any comments.
