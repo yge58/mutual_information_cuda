@@ -1,16 +1,12 @@
 
-Project Name: Calculate Image Mutual Information and Mattes Mutual Information in CUDA
+Project Name: Image Mutual Information in CUDA
 ________________________________________________________________________
 I dedicate this project to my mom, in celebration of her 50th birthday!
-________________________________________________________________________
-Description:  what is image mutual information and Mattes Mutual information? 
-	      and how to calculate them, in cuda?
-	      Please have a look in the folder doc. 
-	      Thank you.
 
-Developer:    Yan Ge
 
-Developing duration: March 2017 - May 2017
+Developer:    		Yan Ge
+
+Time: 	      		March 2017 - May 2017
 
 Source Code based on: [1] CUDA sample histogram 
        	    	      [2] ITK Image Mutual Information sample code.
@@ -38,13 +34,13 @@ How to use:
     Install CMAKE
     (https://cmake.org/download/)
     
-    (needless to say, CUDA, emacs, GNU GLOBAL...)
 
 
-[2] <1> Make a directory called "cudaMutualInformation"
-    <2> untar the source code.
-    <3> Inside this directory, make another directory called "build".
+[2] mkdir cudaMutualInformation
+    tar -xvzf *.tar
+    cd cudaMutualInformation && mkdir build && cmake ../
 
+if cmake failed, the following may help build.
 
 [3] Build using cmake.
     you might need to change a few lines of code in "CMakeList.txt". 
@@ -75,20 +71,8 @@ How to use:
         ./ImageMutualInformation ManualRegistrationExample_fixed.nrrd ManualRegistrationExample_fixed.nrrd 1 (64 or 256)
 
 
-Attention: There is a bug.
-
-	   If use same bin number, no matter you choose ITK or CUDA, the results shall be the same.
-	   However, funny thing happens in my program, they are not the same.
-
-	   The reason is the following, the "double" format in ITK is more precise than CUDA.
+Attention: the "double" format in ITK is more precise than CUDA.
 	   For eample, if bin count is 42, ITK gives 0.00840947, while CUDA gives 0.008409.
-	   The fact is CUDA's "double" precision is 6 decimal place after decimal point, while ITK is 
-	   8 decimal place. Although the difference is tiny, it might become a significant issue 
-	   in image registration algorithm.
-	   
- 	   If this is the reason why ITK runs slow, or CUDA runs strangly fast, 
-	   CUDA code must be more precise on "double".
-	   I will do some reseach on this, and I will make CUDA program run with any bin number like ITK.
 	   
 	   
 	   Thank you for trying this software, and I certainly welcome any comments.
