@@ -6,6 +6,7 @@ Time: 	      		March 2017 - May 2017
 
 Source Code based on: [1] CUDA sample histogram 
        	    	      [2] ITK Image Mutual Information sample code.
+		      (https://itk.org/Wiki/ITK/Examples/Registration/MutualInformation)
 
 _______________________________________________________________________
 I dedicate this project to my mom, in celebration of her 50th birthday!
